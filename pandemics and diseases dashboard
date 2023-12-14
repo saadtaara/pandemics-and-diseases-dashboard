@@ -1,0 +1,49 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Download and clean data
+url = "https://data.worldbank.org/..."  # Replace with actual data URL
+df = pd.read_csv(url)
+df.dropna(inplace=True)
+
+# Group data by country and calculate summary statistics
+countries = ["United States", "United Kingdom", "Belgium", "Hungary", "Canada",
+             "Australia", "Russia", "China", "France", "India"]
+df_grouped = df[df["Country"].isin(countries)].groupby("Country")
+
+# Bar chart - Disease prevalence range
+disease_range = df_grouped["Prevalence"].max() - df_grouped["Prevalence"].min()
+plt.figure(figsize=(10, 6))
+sns.barplot(x=disease_range.index, y=disease_range.values, color="skyblue")
+plt.xlabel("Country")
+plt.ylabel("Disease Prevalence Range")
+plt.title("Range of Disease Prevalence in Selected Countries")
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Pie charts - Top deceased age groups
+for country in countries:
+    age_groups = df_grouped.get_group(country)["Age Group"].value_counts().head(3)
+    plt.figure(figsize=(4, 4))
+    plt.pie(age_groups, labels=age_groups.index, autopct="%1.1f%%", startangle=90)
+    plt.title(f"Top Deceased Age Groups in {country}")
+    plt.tight_layout()
+
+# Choropleth map - Disease hotspots (requires additional data)
+# ... implement logic to map disease prevalence onto country regions
+
+# Timeline - Disease trends over time
+for country in countries:
+    data_country = df_grouped.get_group(country).sort_values(by="Year")
+    plt.figure(figsize=(8, 4))
+    plt.plot(data_country["Year"], data_country["Prevalence"], marker="o", linestyle="-")
+    plt.xlabel("Year")
+    plt.ylabel("Disease Prevalence")
+    plt.title(f"Disease Trend Over Time in {country}")
+    plt.grid(True)
+    plt.tight_layout()
+
+# Combine visualizations into an infographic (e.g., using web app)
+
