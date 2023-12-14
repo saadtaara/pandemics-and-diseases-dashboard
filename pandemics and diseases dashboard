@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Download and clean data
-url = "https://data.worldbank.org/..."  # Replace with actual data URL
+url = "https://data.worldbank.org/  
 df = pd.read_csv(url)
 df.dropna(inplace=True)
 
