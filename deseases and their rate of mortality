@@ -27,22 +27,23 @@ disease_rates = df_filtered.groupby("Country")["Disease Rate"].mean().reset_inde
 plt.figure(figsize=(6, 6))
 plt.pie(disease_rates["Disease Rate"], labels=disease_rates["Country"], autopct="%1.1f%%")
 plt.title("Overall Disease Rate in Selected Countries")
-plt.axis("equal")  # Equal aspect ratio ensures a circular pie chart
+plt.axis("equal")  
+plt.("isolate the highly affected country")
 
-# Mortality Rate from household activities, Pollution (Pie Chart)
+# Mortality Rate from household activities, Pollution (area Chart)
 pollution, household activities_mortality = df_filtered.groupby("Country")["Pollution Mortality Rate"].mean().reset_index()
 plt.figure(figsize=(6, 6))
-plt.pie(pollution, household activities_mortality["Pollution,household activities Mortality Rate"], labels=pollution_mortality["Country"], autopct="%1.1f%%")
+plt.area(pollution, household activities_mortality["Pollution,household activities Mortality Rate"], labels=pollution_mortality["Country"], autopct="%1.1f%%")
 plt.title("Mortality Rate from Household & Ambient Air Pollution (per 10,000 population)")
 plt.axis("equal")
 
-# Death Rate by Disease Type (Bar Graph)
+# Death Rate by Disease Type (line Graph)
 communicable_death_rate = np.mean(df_filtered[df_filtered["Disease Type"] == "Communicable"]["Death Rate"])
 noncommunicable_death_rate = np.mean(df_filtered[df_filtered["Disease Type"] == "Non-Communicable"]["Death Rate"])
 total_death_rate = communicable_death_rate + noncommunicable_death_rate
 plt.figure(figsize=(8, 5))
-plt.bar(["Communicable", "Non-Communicable"], [communicable_death_rate, noncommunicable_death_rate], color=["red", "blue"])
+plt.bar(["Communicable", "Non-Communicable"], [communicable_death_rate, noncommunicable_death_rate], color=["brown", "blue"])
 plt.xlabel("Disease Type")
 plt.ylabel("Death Rate (%)")
 plt.title("Death Rate Caused by Communicable and Non-Communicable Diseases (% of total)")
-plt.ylim(0, total_death_rate * 1.1)  # Adjust upper limit slightly above total death rate
+plt.ylim(0, total_death_rate * 1.1)  
